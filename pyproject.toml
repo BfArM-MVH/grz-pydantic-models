@@ -32,8 +32,8 @@ Repository = "https://github.com/BfArM-MVH/grz-pydantic-models.git"
 Issues = "https://github.com/BfArM-MVH/grz-pydantic-models/issues"
 Changelog = "https://github.com/BfArM-MVH/grz-pydantic-models/commits/main"
 
-[project.optional-dependencies]
-development = [
+[dependency-groups]
+dev = [
   "ruff",
   "mypy"
 ]
