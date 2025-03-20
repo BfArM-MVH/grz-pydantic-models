@@ -1,6 +1,7 @@
 name: Publish to PyPI
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
   push:
@@ -28,10 +29,10 @@ jobs:
       - name: Build package
         run: uv build
 
-      - name: Save build artifacts
+      - name: Save distributables
         uses: actions/upload-artifact@v4
         with:
-          name: grz-pydantic-models-build
+          name: grz-pydantic-models-dist
           path: dist/
 
   pypi-publish:
@@ -47,7 +48,8 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: grz-pydantic-models-build
+          name: grz-pydantic-models-dist
+          path: dist/
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
