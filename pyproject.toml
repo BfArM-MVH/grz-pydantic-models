@@ -35,7 +35,8 @@ Changelog = "https://github.com/BfArM-MVH/grz-pydantic-models/commits/main"
 [dependency-groups]
 dev = [
   "ruff >=0.11.0,<0.12",
-  "mypy >=1.13.0"
+  "mypy >=1.13.0",
+  "pytest == 8.*"
 ]
 
 [tool.hatch.version]
