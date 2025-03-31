@@ -1017,7 +1017,7 @@ type Thresholds = dict[tuple[str, str, str], dict[str, Any]]
 
 def _load_thresholds() -> Thresholds:
     threshold_definitions = json.load(
-        files("grz_cli").joinpath("resources", "thresholds.json").open("r", encoding="utf-8")
+        files("grz_pydantic_models").joinpath("resources", "thresholds.json").open("r", encoding="utf-8")
     )
     threshold_definitions = {
         (d["genomicStudySubtype"], d["libraryType"], d["sequenceSubtype"]): d["thresholds"]
