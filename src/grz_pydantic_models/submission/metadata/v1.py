@@ -19,6 +19,7 @@ from pydantic import (
     model_validator,
 )
 from pydantic.alias_generators import to_camel
+from pydantic.json_schema import GenerateJsonSchema
 
 SCHEMA_URL = "https://raw.githubusercontent.com/BfArM-MVH/MVGenomseq/refs/tags/v1.1.1/GRZ/grz-schema.json"
 
@@ -844,6 +845,7 @@ class GrzSubmissionMetadata(StrictBaseModel):
     """
 
     schema_: Annotated[str, Field(alias="$schema")] = SCHEMA_URL
+    model_config = ConfigDict(json_schema_extra={"$schema": GenerateJsonSchema.schema_dialect})
 
     submission: Submission
 
