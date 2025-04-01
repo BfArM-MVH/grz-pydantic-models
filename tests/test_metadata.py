@@ -15,3 +15,10 @@ def test_examples(dataset: str, version: str):
         importlib.resources.files(resources).joinpath("example_metadata", dataset, f"v{version}.json").read_text()
     )
     GrzSubmissionMetadata.model_validate_json(metadata_str)
+
+
+def test_example_wgs_lr():
+    metadata_str = (
+        importlib.resources.files(resources).joinpath("example_metadata", "wgs_lr", f"v1.1.4.json").read_text()
+    )
+    GrzSubmissionMetadata.model_validate_json(metadata_str)
