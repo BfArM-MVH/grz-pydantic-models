@@ -21,7 +21,7 @@ from pydantic import (
 from pydantic.alias_generators import to_camel
 from pydantic.json_schema import GenerateJsonSchema
 
-SCHEMA_URL = "https://raw.githubusercontent.com/BfArM-MVH/MVGenomseq/refs/tags/v1.1.1/GRZ/grz-schema.json"
+SCHEMA_URL = "https://raw.githubusercontent.com/BfArM-MVH/MVGenomseq/refs/tags/v1.1.4/GRZ/grz-schema.json"
 
 log = logging.getLogger(__name__)
 
