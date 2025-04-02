@@ -781,19 +781,27 @@ class Donor(StrictBaseModel):
         return self
 
     @model_validator(mode="after")
-    def validate_fastq_file_exists(self):  # noqa: C901
+    def validate_sequencing_file_exists(self):  # noqa: C901
         """
-        Check if there is a FASTQ file
+        Check if there is a FASTQ or BAM file (depending on library type)
         """
         for lab_datum in self.lab_data:
             if not lab_datum.has_sequence_data():
                 # Skip if no sequence data is present
                 continue
             fastq_files = lab_datum.sequence_data.list_files(FileType.fastq)
+            bam_files = lab_datum.sequence_data.list_files(FileType.bam)
 
-            if len(fastq_files) == 0:
-                raise ValueError("No FASTQ file found!")
-            elif lab_datum.sequencing_layout == SequencingLayout.paired_end:
+            if lab_datum.library_type.endswith("_lr"):
+                if len(fastq_files) + len(bam_files) == 0:
+                    raise ValueError("Long-read datasets must contain at least one BAM or FASTQ file!")
+            else:
+                if len(bam_files) > 0:
+                    raise ValueError("Short-read datasets cannot contain BAM files!")
+                if len(fastq_files) == 0:
+                    raise ValueError("Short-read datasets must contain at least one FASTQ file!")
+
+            if lab_datum.sequencing_layout == SequencingLayout.paired_end:
                 # check if read order is specified
                 for i in fastq_files:
                     if i.read_order is None:
