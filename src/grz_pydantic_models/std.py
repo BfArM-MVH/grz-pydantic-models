@@ -10,7 +10,7 @@ def deprecated(msg=None):
                 warn(f"{f.__name__} is deprecated.")
             else:
                 warn(msg)
-            f(*args, **kwargs)
+            return f(*args, **kwargs)
 
         return wrapper
 
