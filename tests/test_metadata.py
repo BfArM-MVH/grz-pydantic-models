@@ -3,11 +3,12 @@ import itertools
 import json
 from pathlib import Path
 
-from pydantic import ValidationError
 import pytest
+from pydantic import ValidationError
+
+from grz_pydantic_models.submission.metadata.v1 import GrzSubmissionMetadata
 
 from . import resources
-from grz_pydantic_models.submission.metadata.v1 import GrzSubmissionMetadata
 
 
 @pytest.mark.parametrize(
