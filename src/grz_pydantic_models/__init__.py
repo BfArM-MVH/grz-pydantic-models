@@ -1,6 +1,5 @@
-from .submission.metadata import get_supported_versions as _get_supported_versions
 from .std import deprecated
-
+from .submission.metadata import get_supported_versions as _get_supported_versions
 
 __version__ = "1.2.1"
 
