@@ -22,18 +22,18 @@ from ..submission.metadata import (
 class DataCategory(enum.StrEnum):
     """Type of submission."""
 
-    clinical = enum.auto()
-    genomic = enum.auto()
+    clinical = "clinical"
+    genomic = "genomic"
 
 
 class LibraryType(enum.StrEnum):
     """Sequencing method, if applicable."""
 
-    panel = enum.auto()
-    wes = enum.auto()
-    wgs = enum.auto()
-    wgs_lr = enum.auto()
-    none = enum.auto()
+    panel = "panel"
+    wes = "wes"
+    wgs = "wgs"
+    wgs_lr = "wgs_lr"
+    none = "none"
 
 
 class SubmittedCase(StrictBaseModel):
