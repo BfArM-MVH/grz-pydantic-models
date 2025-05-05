@@ -66,15 +66,25 @@ class CoverageType(StrEnum):
     Health insurance providers
     """
 
+    # Gesetzliche Krankenversicherung
     GKV = "GKV"
+    # Private Krankenversicherung
     PKV = "PKV"
+    # Berufsgenossenschaft
     BG = "BG"
+    # Selbstzahler
     SEL = "SEL"
+    # Sozialamt
     SOZ = "SOZ"
+    # Gesetzliche Pflegeversicherung
     GPV = "GPV"
+    # Private Pflegeversicherung
     PPV = "PPV"
+    # Beihilfe
     BEI = "BEI"
+    # Sonstige Kostenträger
     SKT = "SKT"
+    # Unklar/Unbekannt
     UNK = "UNK"
 
 
