@@ -737,7 +737,7 @@ class Donor(StrictBaseModel):
     @model_validator(mode="after")
     def warn_empty_sequence_data(self):
         for lab_datum in self.lab_data:
-            if not lab_datum.has_sequence_data():
+            if lab_datum.sequence_data is None:
                 log.warning(
                     f"No sequence data found for lab datum '{lab_datum.lab_data_name}' in donor '{self.donor_pseudonym}'. "
                     "Is this a submission without sequence data?"
@@ -760,7 +760,7 @@ class Donor(StrictBaseModel):
 
         for lab_datum in self.lab_data:
             if (
-                lab_datum.has_sequence_data()
+                lab_datum.sequence_data is not None
                 and lab_datum.library_type in lib_types
                 and not lab_datum.sequence_data.contains_files(FileType.bed)
             ):
@@ -776,7 +776,7 @@ class Donor(StrictBaseModel):
         Check if there is a VCF file
         """
         for lab_datum in self.lab_data:
-            if lab_datum.has_sequence_data() and not lab_datum.sequence_data.contains_files(FileType.vcf):
+            if lab_datum.sequence_data is not None and not lab_datum.sequence_data.contains_files(FileType.vcf):
                 raise ValueError(
                     f"VCF file missing for lab datum '{lab_datum.lab_data_name}' in donor '{self.donor_pseudonym}'."
                 )
@@ -789,7 +789,7 @@ class Donor(StrictBaseModel):
         Check if there is a FASTQ or BAM file (depending on library type)
         """
         for lab_datum in self.lab_data:
-            if not lab_datum.has_sequence_data():
+            if lab_datum.sequence_data is None:
                 # Skip if no sequence data is present
                 continue
             fastq_files = lab_datum.sequence_data.list_files(FileType.fastq)
@@ -967,6 +967,7 @@ class GrzSubmissionMetadata(StrictBaseModel):
             (donor.donor_pseudonym, lab_datum.lab_data_name): lab_datum.sequence_data.reference_genome
             for donor in self.donors
             for lab_datum in donor.lab_data
+            if lab_datum.sequence_data is not None
         }
         unique_reference_genomes = set(reference_genomes.values())
         if len(unique_reference_genomes) > 1:
@@ -980,13 +981,12 @@ class GrzSubmissionMetadata(StrictBaseModel):
 
 
 def _check_thresholds(donor: Donor, lab_datum: LabDatum, thresholds: dict[str, Any]):
-    if not lab_datum.has_sequence_data():
+    if lab_datum.sequence_data is None:
         # Skip if no sequence data is present; warning issues in the validator `warn_empty_sequence_data` of `Donor`.
         return
     pseudonym = donor.donor_pseudonym
     lab_data_name = lab_datum.lab_data_name
-    # mypy cannot reason about the `has_sequence_data` check
-    sequence_data = typing.cast(SequenceData, lab_datum.sequence_data)
+    sequence_data = lab_datum.sequence_data
 
     mean_depth_of_coverage_t = thresholds.get("meanDepthOfCoverage")
     mean_depth_of_coverage_v = sequence_data.mean_depth_of_coverage
