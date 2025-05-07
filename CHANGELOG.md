@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/BfArM-MVH/grz-pydantic-models/compare/v1.4.0...v1.4.1) (2025-05-07)
+
+
+### Documentation
+
+* remove double entries in changelog ([#18](https://github.com/BfArM-MVH/grz-pydantic-models/issues/18)) ([7acf273](https://github.com/BfArM-MVH/grz-pydantic-models/commit/7acf2738c35224b786ec0e21b8a17c22f7e8ac89))
+
 ## [1.4.0](https://github.com/BfArM-MVH/grz-pydantic-models/compare/v1.3.0...v1.4.0) (2025-05-07)
 
 
